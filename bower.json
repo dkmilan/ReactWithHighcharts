@@ -1,0 +1,13 @@
+{
+  "name": "react-highcharts",
+  "description": "React Component with Highcharts",
+  "authors": [
+    "Betty Beta <bbeta@example.com>"
+  ],
+  "dependencies": {
+    "react": "^15.1.0",
+    "highcharts": "^4.2.5",
+    "babel": "*",
+    "jquery": "^2.2.4"
+  }
+}
