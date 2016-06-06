@@ -1,100 +1,35 @@
 <script src="bower_components/react/react.js"></script>
 <script src="bower_components/react/react-dom.js"></script>
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://www.highcharts.com/samples/data/usdeur.js"></script>
+<script src="bower_components/highcharts/highstock.js"></script>
+<script src="scripts/views/chart.js"></script>
+<script src="scripts/views/assetMixLegend.js"></script>
 
 <div id="react-donut"></div>
+<div id="react-donut-edit"></div>
 <script>
 
-var DonutChart = React.createClass({
-	options : {
-		chart: {
-			backgroundColor: '#FFFFFF',
-			type: 'pie',
-			height: 178,
-			width: 178,
-			margin: [-10,-10,-10,-10],
-			spacing: [0,0,0,0]
-		},
-		title: {
-			text: ''
-		},
-		legend: {
-			enabled:false
-		},
-		tooltip: {
-			enabled: false
-		},
-		credits: {
-			enabled: false
-		},
-		exporting:{
-			enabled:false
-		},
-		series:[{
-			data:[]
-		},{
-			data:[]
-		},{
-			data:[]
-		}],
-		plotOptions: {
-			pie: {
-				borderColor: '#FFFFFF',
-				borderWidth: '2px',
-				innerSize: '65%',
-				center: ['50%', '50%'],
-				dataLabels: {
-					enabled: false
-				},
-				showInLegend: false
-			},
-			series: {
-				states: {
-					hover: {
-						brightness:.05,
-						halo: {
-							opacity: 0
-						}
-					}
-				}
-			}
-		}
-	},
-
-    // When the DOM is ready, create the chart.
-    componentDidMount: function() {
-      // Extend Highcharts with modules
-      if (this.props.modules) {
-        this.props.modules.forEach(function(module) {
-          module(Highcharts);
-        });
-      }
-	  this.options.series[0].data=this.props.data
-      // Set container which the chart should render to.
-      this.chart = new Highcharts[this.props.type || "Chart"](
-        this.props.container,
-        this.options
-      );
-    },
-    //Destroy chart before unmount.
-    componentWillUnmount: function() {
-      this.chart.destroy();
-    },
-    //Create the div which the chart will be rendered to.
-    render: function() {
-      return React.createElement('div', {
-        id: this.props.container
-      });
-    }
+  var legends = [{
+    key:"DOMESTIC_STOCK",
+    name:"Domestic Stock"
+  },{
+    key:"FOREIGN_STOCK",
+    name:"Foreign Stock"
+  },{
+    key:"BOND",
+    name:"BONDS"
+  },{
+    key:"CASH",
+    name:"Short-Term"
+  }];
+  var element2 = React.createElement(DonutChart, {
+    container: 'chart',
+    data: [10,33,23,23,33]
   });
-  
-var element2 = React.createElement(DonutChart, {
-  container: 'chart',
-  data: [10,33,23,23,33]
-});
-//ReactDOM.render(element, document.getElementById('react-app'));
-ReactDOM.render(element2, document.getElementById('react-donut'));
+  var edit = React.createElement(AssetMixLegend, {
+    items : legends
+  });
 
+  ReactDOM.render(edit, document.getElementById('react-donut-edit'));
+  ReactDOM.render(element2, document.getElementById('react-donut'));
 </script>
 
