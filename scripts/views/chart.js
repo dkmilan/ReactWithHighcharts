@@ -1,3 +1,4 @@
+
 var DonutChart = React.createClass({
     options: {
         chart: {
@@ -55,14 +56,24 @@ var DonutChart = React.createClass({
     },
 
 // When the DOM is ready, create the chart.
-    componentDidMount: function () {
+componentDidMount: function () {
+  this.updateChart();
+},
+componentDidUpdate: function () {
+  this.updateChart();
+},
+    updateChart: function () {
         // Extend Highcharts with modules
         if (this.props.modules) {
             this.props.modules.forEach(function (module) {
                 module(Highcharts);
             });
         }
-        this.options.series[0].data = this.props.data
+        var that = this;
+        that.options.series[0].data = [];
+        this.props.data.map(function(allocationPart){
+          that.options.series[0].data.push(allocationPart.value);
+        })
         // Set container which the chart should render to.
         this.chart = new Highcharts[this.props.type || "Chart"](
             this.props.container,

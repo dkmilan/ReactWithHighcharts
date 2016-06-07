@@ -1,35 +1,38 @@
 <script src="bower_components/react/react.js"></script>
 <script src="bower_components/react/react-dom.js"></script>
 <script src="bower_components/highcharts/highstock.js"></script>
+<script src="bower_components/reflux/dist/reflux.js"></script>
+<script src="scripts/actions.js"></script>
+<script src="scripts/stores.js"></script>
 <script src="scripts/views/chart.js"></script>
 <script src="scripts/views/assetMixLegend.js"></script>
+  <div id="app">
+  <div id="react-donut"></div>
+  <div id="react-donut-edit"></div>
 
-<div id="react-donut"></div>
-<div id="react-donut-edit"></div>
 <script>
 
-  var legends = [{
-    key:"DOMESTIC_STOCK",
-    name:"Domestic Stock"
-  },{
-    key:"FOREIGN_STOCK",
-    name:"Foreign Stock"
-  },{
-    key:"BOND",
-    name:"BONDS"
-  },{
-    key:"CASH",
-    name:"Short-Term"
-  }];
-  var element2 = React.createElement(DonutChart, {
-    container: 'chart',
-    data: [10,33,23,23,33]
-  });
-  var edit = React.createElement(AssetMixLegend, {
-    items : legends
-  });
+(function(React, ReactRouter, Reflux, Actions, assetMixStore, global) {
+  // Renders the full application
+      // RouteHandler will always be TodoMain, but with different 'showing' prop (all/completed/active)
+      var AssetMix = React.createClass({
+          // this will cause setState({list:updatedlist}) whenever the store does trigger(updatedlist)
+          mixins: [Reflux.connect(assetMixStore,"assetAllocations")],
 
-  ReactDOM.render(edit, document.getElementById('react-donut-edit'));
-  ReactDOM.render(element2, document.getElementById('react-donut'));
+          render: function() {
+
+            var element2 = React.createElement(DonutChart, {
+              container: 'chart',
+              data: this.state.assetAllocations
+            });
+            var edit = React.createElement(AssetMixLegend, {
+              items : this.state.assetAllocations
+            });
+            return React.createElement("div", null, [element2, edit]);
+          }
+      });
+      var app = React.createElement(AssetMix);
+      ReactDOM.render(app, document.getElementById('app'));
+    })(window.React, window.ReactRouter, window.Reflux, window.Actions, window.assetMixStore, window);
+
 </script>
-
