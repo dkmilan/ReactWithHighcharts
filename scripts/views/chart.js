@@ -86,8 +86,7 @@ componentDidUpdate: function () {
     },
 //Create the div which the chart will be rendered to.
     render: function () {
-        return React.createElement('div', {
-            id: this.props.container
-        });
+
+        return (<div id={this.props.container}></div>);
     }
 });

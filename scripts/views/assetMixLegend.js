@@ -23,8 +23,12 @@
         });
 
 
-        return React.createElement("div", {className: 'assetmix-legend'},
-            React.createElement("div", {className: 'assetmix-legend-box'}, legendItem));
+        return (
+          <div  class='assetmix-legend'>
+            <div  class='assetmix-legend-box'>
+              {legendItem}
+            </div>
+          </div>);
 
     }
   });
@@ -47,11 +51,12 @@
         this.setState({value:percent});
     },
     render : function () {
-
-        return React.createElement("div",{className:"assemix-legend-item"},[
-            React.createElement("span", {className:"assemix-legend-item-block"}),
-            React.createElement("span", {className:"assemix-legend-item-lebel"},this.props.name),
-            React.createElement("span", {className:"assemix-legend-item-precent"},
-                React.createElement("input", {className:this.props.assetClass, value:this.state.value, onChange:this.handleChange, onBlur:this.handleBlur}))]);
+        return (<div class="assemix-legend-item">
+            <span class="assemix-legend-item-block"/>
+            <span class="assemix-legend-item-lebel">this.props.name</span>
+            <span class="assemix-legend-item-precent">
+                <input class={this.props.assetClass} value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur}></input>
+            </span>
+        </div>);
     }
 });
