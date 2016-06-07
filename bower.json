@@ -9,5 +9,8 @@
     "highcharts": "^4.2.5",
     "babel": "*",
     "jquery": "^2.2.4"
+  },
+  "devDependencies": {
+    "reflux": "^0.4.1"
   }
 }
